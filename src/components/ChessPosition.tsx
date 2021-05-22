@@ -85,15 +85,16 @@ const styles = StyleSheet.create({
 	},
 	default: {
 		justifyContent: "center",
-		borderStyle: "dotted",
-		minHeight: 60,
-		minWidth: 60,
+		minHeight: 50,
+		minWidth: 50,
+		width: "100%",
+		height: "100%",
 	},
 	white: {
-		backgroundColor: "#aaa",
+		backgroundColor: "#5e5e5e",
 	},
 	black: {
-		backgroundColor: "#444",
+		backgroundColor: "#2e2e2e",
 	},
 	selected: {
 		backgroundColor: "magenta"

@@ -1,5 +1,6 @@
 import { Action, Thunk, Computed } from "easy-peasy";
 import { ChessColor } from "../Chess/ChessEnums/ChessColor";
+import { ChessPieceType } from "../Chess/ChessEnums/ChessPieceType";
 import ChessMoveWrapper from "../Chess/ChessInterfaces/ChessMoveWrapper";
 import ChessPieceWrapper from "../Chess/ChessInterfaces/ChessPieceWrapper";
 import Position from "../Chess/ChessInterfaces/Position";
@@ -13,8 +14,9 @@ export default interface StoreModel {
 	myColor: ChessColor;
 	selectedPiece: ChessPieceWrapper | undefined;
 	possibleMoves: ChessMoveWrapper[];
-
-	isConnected: Computed<StoreModel, boolean>;
+	isConnected: boolean;
+	isDuringGame: boolean;
+	isSearchingForGame: boolean;
 
 	setPieces: Action<StoreModel, ChessPieceWrapper[]>;
 	setMoves: Action<StoreModel, ChessMoveWrapper[]>;
@@ -23,8 +25,12 @@ export default interface StoreModel {
 	setMyColor: Action<StoreModel, ChessColor>;
 	setSelectedPiece: Action<StoreModel, ChessPieceWrapper | undefined>;
 	setPossibleMoves: Action<StoreModel, ChessMoveWrapper[]>;
+	setIsConnected: Action<StoreModel, boolean>;
+	setIsDuringGame: Action<StoreModel, boolean>;
+	setIsSearchingForGame: Action<StoreModel, boolean>;
 
 	selectPiece: Thunk<StoreModel, Position>;
+	promotePawn: Thunk<StoreModel, ChessPieceType>;
 	makeMove: Thunk<StoreModel, ChessMoveWrapper>;
 	findGame: Thunk<StoreModel>;
 	closeGame: Thunk<StoreModel>;

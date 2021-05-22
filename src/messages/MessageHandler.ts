@@ -22,10 +22,16 @@ export default class MessageHandler {
 
 	handleOpen = (event: Event) => {
 		console.log("socket connection established!");
+		if (this.storeActions !== null) {
+			return this.storeActions?.setIsConnected(true);
+		}
+		setTimeout(() => this.storeActions?.setIsConnected(true), 100);
 	};
 
 	handleClose = (event: CloseEvent) => {
 		console.log("SOCKET CONNECTION CLOSED!");
+		this.storeActions?.setIsConnected(false);
+		this.storeActions?.setIsDuringGame(false);
 	};
 
 	handleMessage = (event: MessageEvent) => {
@@ -55,6 +61,8 @@ export default class MessageHandler {
 		this.storeActions?.setIsMyTurn(msg.IsClientTurn);
 		const myColor = msg.IsClientTurn ? ChessColor.White : ChessColor.Black;
 		this.storeActions?.setMyColor(myColor);
+		this.storeActions?.setIsDuringGame(true);
+		this.storeActions?.setIsSearchingForGame(false);
 	};
 
 	private handleInvalidStateMessage = (msg: InvalidStateMessage) => {
@@ -88,5 +96,6 @@ export default class MessageHandler {
 		this.storeActions?.setMoves([]);
 		this.storeActions?.setPieces([]);
 		this.storeActions?.setIsMyTurn(false);
+		this.storeActions?.setIsDuringGame(false);
 	};
 }

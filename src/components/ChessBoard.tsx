@@ -19,7 +19,7 @@ const ChessBoard = () => {
 			const position = { X: x, Y: y };
 			positions.push(<ChessPosition key={num} isWhite={isWhite} piece={piece} position={position} />);
 		}
-		const row = <View key={x * boardSize}>{positions}</View>;
+		const row = <View key={x * boardSize} style={styles.row}>{positions}</View>;
 		rows.push(row);
 	}
 	const isConnected = useStoreState(state => state.isConnected);
@@ -32,14 +32,18 @@ const ChessBoard = () => {
 }
 
 const styles = StyleSheet.create({
+	row: {
+		//width: "100%",
+		//height: "100%",
+	},
 	container: {
 		display: "flex",
 		flexDirection: "row",
 		alignItems: "center",
 		justifyContent: "space-between",
-		backgroundColor: "#aaa",
-		borderWidth: 2,
-		borderStyle: "dotted",
+		backgroundColor: "#1e1e1e",
+		//width: "100%",
+		//height: "100%",
 	},
 });
 export default ChessBoard;

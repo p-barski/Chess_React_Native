@@ -1,4 +1,4 @@
 export enum ChessColor {
-  White,
-  Black,
+	White,
+	Black,
 }

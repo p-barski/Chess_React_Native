@@ -1,9 +1,12 @@
 import { action, computed, thunk, createStore } from "easy-peasy";
+import { createRef } from "react";
 import { ChessColor } from "../Chess/ChessEnums/ChessColor";
+import { ChessPieceType } from "../Chess/ChessEnums/ChessPieceType";
 import Position, { arePositionsTheSame } from "../Chess/ChessInterfaces/Position";
 import MessageHandler from "../messages/MessageHandler";
 import FindChessGameMessage from "../messages/OutgoingMessages/FindChessGameMessage";
 import MakeChessMoveMessage from "../messages/OutgoingMessages/MakeChessMoveMessage";
+import PawnPromotionMessage from "../messages/OutgoingMessages/PawnPromotionMesage";
 import StoreModel from "./model";
 
 const url = "wss://chess-react-native.herokuapp.com"
@@ -30,8 +33,9 @@ const store = createStore<StoreModel>({
 	myColor: ChessColor.White,
 	selectedPiece: undefined,
 	possibleMoves: [],
-
-	isConnected: computed((store) => store.socket.readyState == WebSocket.OPEN),
+	isConnected: false,
+	isDuringGame: false,
+	isSearchingForGame: false,
 
 	setPieces: action((state, pieces) => {
 		console.log("Setting pieces");
@@ -60,6 +64,18 @@ const store = createStore<StoreModel>({
 	setPossibleMoves: action((state, moves) => {
 		console.log("Setting possible moves");
 		state.possibleMoves = moves;
+	}),
+	setIsConnected: action((state, isConnected) => {
+		console.log("Setting isConnected");
+		state.isConnected = isConnected;
+	}),
+	setIsDuringGame: action((state, isDuringGame) => {
+		console.log("Setting isDuringGame");
+		state.isDuringGame = isDuringGame;
+	}),
+	setIsSearchingForGame: action((state, isSearchingForGame) => {
+		console.log("Setting isSearchingForGame");
+		state.isSearchingForGame = isSearchingForGame;
 	}),
 
 	selectPiece: thunk(async (actions, position, helpers) => {
@@ -95,6 +111,12 @@ const store = createStore<StoreModel>({
 			.filter(m => arePositionsTheSame(m.ChessMove.StartingPosition, pieceToSelect?.ChessPiece.Position))
 		actions.setPossibleMoves(moves);
 	}),
+	promotePawn: thunk(async (actions, promotion, helpers) => {
+		console.log("Promoting pawn");
+		const msg = new PawnPromotionMessage(ChessPieceType[promotion]);
+		const json = JSON.stringify(msg);
+		helpers.getState().socket.send(json);
+	}),
 	makeMove: thunk(async (actions, move, helpers) => {
 		console.log("Making move");
 		const msg = new MakeChessMoveMessage(move);
@@ -102,6 +124,7 @@ const store = createStore<StoreModel>({
 		helpers.getState().socket.send(json);
 	}),
 	findGame: thunk(async (actions, _, helpers) => {
+		actions.setIsSearchingForGame(true);
 		const findGameMsg = new FindChessGameMessage();
 		const json = JSON.stringify(findGameMsg);
 		console.log("finding game");
