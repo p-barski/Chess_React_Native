@@ -11,7 +11,9 @@ const GameFinishView = () => {
 		findGame();
 	}
 	const style: object[] = [styles.container, styles.visible];
-	if (lastPlayResult === PlayResult[PlayResult.Success] || lastPlayResult === PlayResult[PlayResult.PromotionRequired]) {
+	if (lastPlayResult === PlayResult[PlayResult.Success] ||
+		lastPlayResult === PlayResult[PlayResult.PromotionRequired] ||
+		lastPlayResult === PlayResult[PlayResult.Check]) {
 		style[1] = styles.hidden;
 	}
 
@@ -29,6 +31,8 @@ const styles = StyleSheet.create({
 	},
 	hidden: {
 		display: "none",
+		height: 0,
+		width: 0,
 	},
 	container: {
 		position: "absolute",
@@ -38,9 +42,6 @@ const styles = StyleSheet.create({
 		width: "100%",
 		height: "100%",
 		overflow: "visible",
-		borderWidth: 10,
-		borderStyle: "dotted",
-		borderColor: "white",
 		alignItems: "center",
 		backgroundColor: "rgba(0, 0, 0, 0.8)",
 		justifyContent: "center"
@@ -48,9 +49,6 @@ const styles = StyleSheet.create({
 	text: {
 		color: "white",
 		fontSize: 40,
-		borderWidth: 10,
-		borderStyle: "dotted",
-		borderColor: "pink",
 	}
 });
 export default GameFinishView;

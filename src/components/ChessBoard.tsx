@@ -22,7 +22,6 @@ const ChessBoard = () => {
 		const row = <View key={x * boardSize} style={styles.row}>{positions}</View>;
 		rows.push(row);
 	}
-	const isConnected = useStoreState(state => state.isConnected);
 
 	return (
 		<View style={styles.container}>

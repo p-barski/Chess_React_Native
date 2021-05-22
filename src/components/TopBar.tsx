@@ -26,12 +26,10 @@ const styles = StyleSheet.create({
 		alignContent: "center",
 		justifyContent: "center",
 		backgroundColor: "rebeccapurple",
-		borderWidth: 10,
 	},
 	text: {
 		color: "white",
 		fontSize: 40,
-		borderWidth: 10,
 	}
 });
 export default TopBar;

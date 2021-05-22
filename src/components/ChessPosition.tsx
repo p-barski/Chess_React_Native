@@ -87,8 +87,6 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		minHeight: 50,
 		minWidth: 50,
-		width: "100%",
-		height: "100%",
 	},
 	white: {
 		backgroundColor: "#5e5e5e",
