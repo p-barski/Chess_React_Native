@@ -17,6 +17,7 @@ export default interface StoreModel {
 	isConnected: boolean;
 	isDuringGame: boolean;
 	isSearchingForGame: boolean;
+	lastPlayResult: string;
 
 	setPieces: Action<StoreModel, ChessPieceWrapper[]>;
 	setMoves: Action<StoreModel, ChessMoveWrapper[]>;
@@ -28,6 +29,7 @@ export default interface StoreModel {
 	setIsConnected: Action<StoreModel, boolean>;
 	setIsDuringGame: Action<StoreModel, boolean>;
 	setIsSearchingForGame: Action<StoreModel, boolean>;
+	setLastPlayResult: Action<StoreModel, string>;
 
 	selectPiece: Thunk<StoreModel, Position>;
 	promotePawn: Thunk<StoreModel, ChessPieceType>;

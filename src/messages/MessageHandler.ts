@@ -76,6 +76,7 @@ export default class MessageHandler {
 		if (msg.Message === "Error") {
 			return;
 		}
+		this.storeActions?.setLastPlayResult(msg.Message);
 		this.storeActions?.setIsMyTurn(msg.IsClientTurn);
 		this.storeActions?.setIsPromotionRequired(msg.IsPromotionRequired);
 	};
@@ -93,9 +94,9 @@ export default class MessageHandler {
 		console.log("this is SessionClosedMessage");
 
 		console.log(msg.Reason);
+		this.storeActions?.setLastPlayResult(msg.Reason);
 		this.storeActions?.setMoves([]);
 		this.storeActions?.setPieces([]);
 		this.storeActions?.setIsMyTurn(false);
-		this.storeActions?.setIsDuringGame(false);
 	};
 }

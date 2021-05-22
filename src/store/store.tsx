@@ -1,8 +1,8 @@
-import { action, computed, thunk, createStore } from "easy-peasy";
-import { createRef } from "react";
+import { action, thunk, createStore } from "easy-peasy";
 import { ChessColor } from "../Chess/ChessEnums/ChessColor";
 import { ChessPieceType } from "../Chess/ChessEnums/ChessPieceType";
-import Position, { arePositionsTheSame } from "../Chess/ChessInterfaces/Position";
+import { PlayResult } from "../Chess/ChessEnums/PlayResult";
+import { arePositionsTheSame } from "../Chess/ChessInterfaces/Position";
 import MessageHandler from "../messages/MessageHandler";
 import FindChessGameMessage from "../messages/OutgoingMessages/FindChessGameMessage";
 import MakeChessMoveMessage from "../messages/OutgoingMessages/MakeChessMoveMessage";
@@ -10,9 +10,6 @@ import PawnPromotionMessage from "../messages/OutgoingMessages/PawnPromotionMesa
 import StoreModel from "./model";
 
 const url = "wss://chess-react-native.herokuapp.com"
-
-
-
 const msgHandler = new MessageHandler();
 
 function prepareWebSocket(): WebSocket {
@@ -36,6 +33,7 @@ const store = createStore<StoreModel>({
 	isConnected: false,
 	isDuringGame: false,
 	isSearchingForGame: false,
+	lastPlayResult: "Success",
 
 	setPieces: action((state, pieces) => {
 		console.log("Setting pieces");
@@ -76,6 +74,10 @@ const store = createStore<StoreModel>({
 	setIsSearchingForGame: action((state, isSearchingForGame) => {
 		console.log("Setting isSearchingForGame");
 		state.isSearchingForGame = isSearchingForGame;
+	}),
+	setLastPlayResult: action((state, result) => {
+		console.log("Setting isSearchingForGame");
+		state.lastPlayResult = result;
 	}),
 
 	selectPiece: thunk(async (actions, position, helpers) => {
@@ -125,6 +127,8 @@ const store = createStore<StoreModel>({
 	}),
 	findGame: thunk(async (actions, _, helpers) => {
 		actions.setIsSearchingForGame(true);
+		actions.setLastPlayResult(PlayResult[PlayResult.Success]);
+		actions.setIsDuringGame(false);
 		const findGameMsg = new FindChessGameMessage();
 		const json = JSON.stringify(findGameMsg);
 		console.log("finding game");
@@ -141,7 +145,6 @@ const store = createStore<StoreModel>({
 });
 
 msgHandler.storeActions = store.getActions();
-console.log("finished store.tsx")
 
 //Heroku disconnects after 55 seconds of inactivity
 setInterval(() => {

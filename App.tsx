@@ -6,6 +6,7 @@ import store from "./src/store/store"
 import MainView from "./src/components/MainView";
 import TopBar from "./src/components/TopBar";
 import PromotionView from "./src/components/PromotionView";
+import GameFinishView from "./src/components/GameFinishView";
 
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
 				<TopBar />
 				<MainView />
 				<PromotionView />
+				<GameFinishView />
 				<StatusBar style="auto" />
 			</View>
 		</StoreProvider>

@@ -1,4 +1,4 @@
-enum PlayResult {
+export enum PlayResult {
 	Error,
 	GameFinished,
 	PositionTaken,
