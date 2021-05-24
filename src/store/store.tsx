@@ -4,12 +4,13 @@ import { ChessPieceType } from "../Chess/ChessEnums/ChessPieceType";
 import { PlayResult } from "../Chess/ChessEnums/PlayResult";
 import { arePositionsTheSame } from "../Chess/ChessInterfaces/Position";
 import MessageHandler from "../messages/MessageHandler";
+import CancelSessionMessage from "../messages/OutgoingMessages/CancelSessionMessage";
 import FindChessGameMessage from "../messages/OutgoingMessages/FindChessGameMessage";
 import MakeChessMoveMessage from "../messages/OutgoingMessages/MakeChessMoveMessage";
 import PawnPromotionMessage from "../messages/OutgoingMessages/PawnPromotionMesage";
 import StoreModel from "./model";
 
-const url = "wss://chess-react-native.herokuapp.com"
+const url = "wss://chess-react-native.herokuapp.com";
 const msgHandler = new MessageHandler();
 
 function prepareWebSocket(): WebSocket {
@@ -126,18 +127,23 @@ const store = createStore<StoreModel>({
 		helpers.getState().socket.send(json);
 	}),
 	findGame: thunk(async (actions, _, helpers) => {
+		console.log("finding game");
 		actions.setIsSearchingForGame(true);
 		actions.setLastPlayResult(PlayResult[PlayResult.Success]);
 		actions.setIsDuringGame(false);
 		const findGameMsg = new FindChessGameMessage();
 		const json = JSON.stringify(findGameMsg);
-		console.log("finding game");
-		console.log(helpers.getState().socket.readyState.toString());
 		actions.setSelectedPiece(undefined);
 		helpers.getState().socket.send(json);
 	}),
 	closeGame: thunk(async (actions, _, helpers) => {
-		helpers.getState();
+		console.log("closing game");
+		const cancelSessionMsg = new CancelSessionMessage();
+		const json = JSON.stringify(cancelSessionMsg);
+		actions.setSelectedPiece(undefined);
+		actions.setPossibleMoves([]);
+		actions.setIsDuringGame(false);
+		helpers.getState().socket.send(json);
 	}),
 	pingServer: thunk(async (actions, _, helpers) => {
 		helpers.getState().socket.send("{a:1}");
