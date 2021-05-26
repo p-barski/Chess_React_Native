@@ -1,6 +1,9 @@
 import { Actions } from "easy-peasy";
 import { ChessColor } from "../Chess/ChessEnums/ChessColor";
 import StoreModel from "../store/model";
+import AuthenticationResultMessage, {
+	isAuthenticationResultMessage,
+} from "./IncomingMessages/AuthenticationResultMessage";
 import ChessPiecesAndMovesMessage, {
 	isChessPiecesAndMovesMessage,
 } from "./IncomingMessages/ChessPiecesAndMovesMessage";
@@ -52,6 +55,9 @@ export default class MessageHandler {
 		if (isSessionClosedMessage(msg)) {
 			return this.handleSessionClosedMessage(msg);
 		}
+		if (isAuthenticationResultMessage(msg)) {
+			return this.handleAuthenticationResultMessage(msg);
+		}
 		console.log("this is UNKNOWN message");
 	};
 
@@ -98,5 +104,16 @@ export default class MessageHandler {
 		this.storeActions?.setMoves([]);
 		this.storeActions?.setPieces([]);
 		this.storeActions?.setIsMyTurn(false);
+	};
+
+	private handleAuthenticationResultMessage = (
+		msg: AuthenticationResultMessage
+	) => {
+		console.log("this is AuthenticationResultMessage");
+		console.log(msg.ErrorMessage);
+
+		if (msg.IsSuccess) {
+			this.storeActions?.setIsLoggedIn(true);
+		}
 	};
 }

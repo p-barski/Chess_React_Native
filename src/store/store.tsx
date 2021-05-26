@@ -4,6 +4,7 @@ import { ChessPieceType } from "../Chess/ChessEnums/ChessPieceType";
 import { PlayResult } from "../Chess/ChessEnums/PlayResult";
 import { arePositionsTheSame } from "../Chess/ChessInterfaces/Position";
 import MessageHandler from "../messages/MessageHandler";
+import AuthenticationMessage from "../messages/OutgoingMessages/AuthenticationMessage";
 import CancelSessionMessage from "../messages/OutgoingMessages/CancelSessionMessage";
 import FindChessGameMessage from "../messages/OutgoingMessages/FindChessGameMessage";
 import MakeChessMoveMessage from "../messages/OutgoingMessages/MakeChessMoveMessage";
@@ -35,6 +36,10 @@ const store = createStore<StoreModel>({
 	isDuringGame: false,
 	isSearchingForGame: false,
 	lastPlayResult: "Success",
+	isSideBarOpen: false,
+	isLoggedIn: false,
+	isRegistering: false,
+	isLoggingIn: false,
 
 	setPieces: action((state, pieces) => {
 		console.log("Setting pieces");
@@ -77,8 +82,24 @@ const store = createStore<StoreModel>({
 		state.isSearchingForGame = isSearchingForGame;
 	}),
 	setLastPlayResult: action((state, result) => {
-		console.log("Setting isSearchingForGame");
+		console.log("Setting lastPlayResult");
 		state.lastPlayResult = result;
+	}),
+	setIsSideBarOpen: action((state, isSideBarOpen) => {
+		console.log(`Setting isSideBarOpen ${isSideBarOpen}`);
+		state.isSideBarOpen = isSideBarOpen;
+	}),
+	setIsLoggedIn: action((state, isLoggedIn) => {
+		console.log("Setting isLoggedIn");
+		state.isLoggedIn = isLoggedIn;
+	}),
+	setIsRegistering: action((state, isRegistering) => {
+		console.log("Setting isRegistering");
+		state.isRegistering = isRegistering;
+	}),
+	setIsLoggingIn: action((state, isLoggingIn) => {
+		console.log("Setting isLoggingIn");
+		state.isLoggingIn = isLoggingIn;
 	}),
 
 	selectPiece: thunk(async (actions, position, helpers) => {
@@ -147,6 +168,18 @@ const store = createStore<StoreModel>({
 	}),
 	pingServer: thunk(async (actions, _, helpers) => {
 		helpers.getState().socket.send("{a:1}");
+	}),
+	logIn: thunk(async (actions, { name, password }, helpers) => {
+		console.log("Logging in");
+		const authenticationMessage = new AuthenticationMessage(false, name, password);
+		const json = JSON.stringify(authenticationMessage);
+		helpers.getState().socket.send(json);
+	}),
+	register: thunk(async (actions, { name, password }, helpers) => {
+		console.log("Registering");
+		const authenticationMessage = new AuthenticationMessage(true, name, password);
+		const json = JSON.stringify(authenticationMessage);
+		helpers.getState().socket.send(json);
 	}),
 });
 

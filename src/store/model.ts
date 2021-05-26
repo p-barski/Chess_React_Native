@@ -18,6 +18,10 @@ export default interface StoreModel {
 	isDuringGame: boolean;
 	isSearchingForGame: boolean;
 	lastPlayResult: string;
+	isSideBarOpen: boolean;
+	isLoggedIn: boolean;
+	isRegistering: boolean;
+	isLoggingIn: boolean;
 
 	setPieces: Action<StoreModel, ChessPieceWrapper[]>;
 	setMoves: Action<StoreModel, ChessMoveWrapper[]>;
@@ -30,6 +34,10 @@ export default interface StoreModel {
 	setIsDuringGame: Action<StoreModel, boolean>;
 	setIsSearchingForGame: Action<StoreModel, boolean>;
 	setLastPlayResult: Action<StoreModel, string>;
+	setIsSideBarOpen: Action<StoreModel, boolean>;
+	setIsLoggedIn: Action<StoreModel, boolean>;
+	setIsRegistering: Action<StoreModel, boolean>;
+	setIsLoggingIn: Action<StoreModel, boolean>;
 
 	selectPiece: Thunk<StoreModel, Position>;
 	promotePawn: Thunk<StoreModel, ChessPieceType>;
@@ -37,4 +45,6 @@ export default interface StoreModel {
 	findGame: Thunk<StoreModel>;
 	closeGame: Thunk<StoreModel>;
 	pingServer: Thunk<StoreModel>;
+	logIn: Thunk<StoreModel, { name: string; password: string }>;
+	register: Thunk<StoreModel, { name: string; password: string }>;
 }

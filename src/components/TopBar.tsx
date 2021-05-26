@@ -8,8 +8,7 @@ const TopBar = () => {
 	const isDuringGame = useStoreState(state => state.isDuringGame);
 	const color = useStoreState(state => state.myColor);
 	const isMyTurn = useStoreState(state => state.isMyTurn);
-	const findGame = useStoreActions(actions => actions.findGame);
-	const closeGame = useStoreActions(actions => actions.closeGame);
+	const setIsSideBarOpen = useStoreActions(actions => actions.setIsSideBarOpen);
 
 	let myTurnText = "";
 	let colorText = "";
@@ -18,22 +17,15 @@ const TopBar = () => {
 		colorText = color === ChessColor.White ? "Color: White" : "Color: Black";
 	}
 
-	const onFindGame = () => {
-		findGame();
-	}
-
-	const onClosePress = () => {
-		if (isDuringGame) {
-			closeGame();
-		}
+	const onOpenSideBarPress = () => {
+		setIsSideBarOpen(true);
 	};
 
 	return (
 		<View style={styles.container}>
-			<Button onPress={onFindGame} title="Find game"></Button>
 			<Text style={styles.text}>{myTurnText}</Text>
 			<Text style={styles.text}>{colorText}</Text>
-			<Button onPress={onClosePress} title="Close game"></Button>
+			<Button onPress={onOpenSideBarPress} title="≡"></Button>
 		</View >
 	);
 }
