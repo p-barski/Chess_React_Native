@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, View, Button } from "react-native";
 import { useStoreState, useStoreActions } from "../store/hooks"
 
 
@@ -28,10 +28,12 @@ const SideBar = () => {
 
 	const onLogInPress = () => {
 		setIsLoggingIn(true);
+		setIsSideBarOpen(false);
 	};
 
 	const onRegisterPress = () => {
 		setIsRegistering(true);
+		setIsSideBarOpen(false);
 	};
 
 	const onCloseSideBarPress = () => {

@@ -8,6 +8,7 @@ import TopBar from "./src/components/TopBar";
 import PromotionView from "./src/components/PromotionView";
 import GameFinishView from "./src/components/GameFinishView";
 import SideBar from "./src/components/SideBar";
+import LogInRegisterView from "./src/components/LogInRegisterView";
 
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
 				<TopBar />
 				<MainView />
 				<SideBar />
+				<LogInRegisterView />
 				<PromotionView />
 				<GameFinishView />
 				<StatusBar style="auto" />

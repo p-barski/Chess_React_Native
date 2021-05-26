@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, GestureResponderEvent, Button } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 import { ChessPieceType } from "../Chess/ChessEnums/ChessPieceType";
 import { useStoreState, useStoreActions } from "../store/hooks"
 

@@ -22,6 +22,7 @@ export default interface StoreModel {
 	isLoggedIn: boolean;
 	isRegistering: boolean;
 	isLoggingIn: boolean;
+	logInRegisterErrorMessage: string;
 
 	setPieces: Action<StoreModel, ChessPieceWrapper[]>;
 	setMoves: Action<StoreModel, ChessMoveWrapper[]>;
@@ -38,6 +39,7 @@ export default interface StoreModel {
 	setIsLoggedIn: Action<StoreModel, boolean>;
 	setIsRegistering: Action<StoreModel, boolean>;
 	setIsLoggingIn: Action<StoreModel, boolean>;
+	setLogInRegisterErrorMessage: Action<StoreModel, string>;
 
 	selectPiece: Thunk<StoreModel, Position>;
 	promotePawn: Thunk<StoreModel, ChessPieceType>;

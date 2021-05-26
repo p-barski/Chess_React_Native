@@ -112,8 +112,10 @@ export default class MessageHandler {
 		console.log("this is AuthenticationResultMessage");
 		console.log(msg.ErrorMessage);
 
+		this.storeActions?.setIsLoggedIn(msg.IsSuccess);
+		this.storeActions?.setLogInRegisterErrorMessage(msg.ErrorMessage);
 		if (msg.IsSuccess) {
-			this.storeActions?.setIsLoggedIn(true);
+			this.storeActions?.setLogInRegisterErrorMessage("Success");
 		}
 	};
 }

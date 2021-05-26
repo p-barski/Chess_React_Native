@@ -40,6 +40,7 @@ const store = createStore<StoreModel>({
 	isLoggedIn: false,
 	isRegistering: false,
 	isLoggingIn: false,
+	logInRegisterErrorMessage: "",
 
 	setPieces: action((state, pieces) => {
 		console.log("Setting pieces");
@@ -100,6 +101,10 @@ const store = createStore<StoreModel>({
 	setIsLoggingIn: action((state, isLoggingIn) => {
 		console.log("Setting isLoggingIn");
 		state.isLoggingIn = isLoggingIn;
+	}),
+	setLogInRegisterErrorMessage: action((state, logInRegisterErrorMessage) => {
+		console.log("Setting logInRegisterErrorMessage");
+		state.logInRegisterErrorMessage = logInRegisterErrorMessage;
 	}),
 
 	selectPiece: thunk(async (actions, position, helpers) => {
