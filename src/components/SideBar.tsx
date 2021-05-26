@@ -1,4 +1,3 @@
-//≡≡≡≡
 import React from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { useStoreState, useStoreActions } from "../store/hooks"
@@ -9,6 +8,8 @@ const SideBar = () => {
 	const isVisible = useStoreState(state => state.isSideBarOpen);
 	const findGame = useStoreActions(actions => actions.findGame);
 	const closeGame = useStoreActions(actions => actions.closeGame);
+	const setIsLoggingIn = useStoreActions(actions => actions.setIsLoggingIn);
+	const setIsRegistering = useStoreActions(actions => actions.setIsRegistering);
 	const setIsSideBarOpen = useStoreActions(actions => actions.setIsSideBarOpen);
 
 	const style: object[] = [styles.container, styles.hidden];
@@ -25,6 +26,14 @@ const SideBar = () => {
 		}
 	};
 
+	const onLogInPress = () => {
+		setIsLoggingIn(true);
+	};
+
+	const onRegisterPress = () => {
+		setIsRegistering(true);
+	};
+
 	const onCloseSideBarPress = () => {
 		setIsSideBarOpen(false);
 	};
@@ -34,6 +43,8 @@ const SideBar = () => {
 			<Button onPress={onCloseSideBarPress} title="≡"></Button>
 			<Button onPress={onFindGame} title="Find game"></Button>
 			<Button onPress={onClosePress} title="Close game"></Button>
+			<Button onPress={onLogInPress} title="Log in"></Button>
+			<Button onPress={onRegisterPress} title="Register"></Button>
 		</View >
 	);
 }
@@ -57,10 +68,8 @@ const styles = StyleSheet.create({
 		textAlignVertical: "center",
 		alignItems: "center",
 		alignContent: "stretch",
-		justifyContent: "space-around",
+		justifyContent: "space-between",
 		backgroundColor: "rebeccapurple",
-		borderWidth: 10,
-		borderColor: "grey",
 	},
 	text: {
 		color: "white",

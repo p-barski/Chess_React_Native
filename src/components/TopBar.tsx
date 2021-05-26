@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 		textAlignVertical: "center",
 		alignItems: "center",
 		alignContent: "stretch",
-		justifyContent: "space-around",
+		justifyContent: "space-between",
 		backgroundColor: "rebeccapurple",
 	},
 	text: {
