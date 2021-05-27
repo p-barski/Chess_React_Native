@@ -27,10 +27,13 @@
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
     "expo-cli": "^4.4.8",
-    "ts-auto-guard": "*",
     "typescript": "~4.0.0"
   },
   "private": true,
   "name": "Chess",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "engines": {
+    "node": "16.1.x",
+    "npm": "7.12.x"
+  }
 }
