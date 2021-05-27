@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
 		zIndex: 1,
 		right: 0,
 		top: 0,
-		width: "10%",
+		width: 100,
 		height: "100%",
 		textAlignVertical: "center",
 		alignItems: "center",

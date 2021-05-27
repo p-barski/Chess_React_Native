@@ -52,10 +52,12 @@ const LogInRegisterView = () => {
 	return (
 		<View style={style}>
 			<Text style={styles.text}>{infoText}</Text>
-			<TextInput style={styles.text} placeholder="Login"
+			<TextInput style={styles.text}
+				placeholder="Login" placeholderTextColor="#CCC"
 				onChangeText={onChangeLoginText} value={loginText} />
 			<TextInput style={styles.text} secureTextEntry={true}
-				placeholder="Password" onChangeText={onChangePasswordText}
+				placeholder="Password" placeholderTextColor="#CCC"
+				onChangeText={onChangePasswordText}
 				value={passwordText} />
 			<Button onPress={onConfirmPress} title="Confirm" />
 			<Button onPress={onCancelPress} title="Cancel" />
